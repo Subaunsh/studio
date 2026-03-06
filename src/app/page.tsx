@@ -40,6 +40,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 function LandingPage() {
   const { signInWithGoogle } = useAuth();
@@ -144,7 +145,7 @@ function LandingPage() {
             <Sparkles size={14} />
             The Future of Personal Intelligence
           </div>
-          <h1 className="text-5xl md:text-8xl font-black font-headline leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:scale-[1.03] hover:drop-shadow-[0_0_25px_rgba(var(--primary),0.6)] transition-all duration-300">
+          <h1 className="text-3xl md:text-5xl font-black font-headline leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:scale-[1.03] hover:drop-shadow-[0_0_25px_rgba(var(--primary),0.6)] transition-all duration-300">
             Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
           </h1>
           <p className="text-[20px] text-muted-foreground leading-relaxed max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
@@ -188,24 +189,28 @@ function LandingPage() {
               title="AI Image Generator"
               description="Turn text into stunning visuals. From photorealistic renders to abstract art, Nova creates in seconds."
               accentColor="bg-accent/10"
+              onClick={() => setIsAuthModalOpen(true)}
             />
             <FeatureCard 
               icon={<MessageSquare className="text-primary" />}
               title="AI Chat System"
               description="Deep reasoning and instant answers. Engage with an assistant that remembers context and nuance."
               accentColor="bg-primary/10"
+              onClick={() => setIsAuthModalOpen(true)}
             />
             <FeatureCard 
               icon={<Mic className="text-orange-500" />}
               title="Voice Assistant"
               description="Natural, expressive voice interaction. Nova listens carefully and responds with high-fidelity speech."
               accentColor="bg-orange-500/10"
+              onClick={() => setIsAuthModalOpen(true)}
             />
             <FeatureCard 
               icon={<LayoutGrid className="text-purple-500" />}
               title="AI Tools Section"
               description="A powerhouse of productivity. Code generation, document analysis, and data extraction at your fingertips."
               accentColor="bg-purple-500/10"
+              onClick={() => setIsAuthModalOpen(true)}
             />
           </div>
         </div>
@@ -379,15 +384,23 @@ function FeatureCard({
   icon, 
   title, 
   description, 
-  accentColor 
+  accentColor,
+  onClick
 }: { 
   icon: React.ReactNode, 
   title: string, 
   description: string,
-  accentColor: string
+  accentColor: string,
+  onClick?: () => void
 }) {
   return (
-    <div className="bg-card p-8 rounded-[2rem] border border-border/50 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all group">
+    <div 
+      onClick={onClick}
+      className={cn(
+        "bg-card p-8 rounded-[2rem] border border-border/50 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all group",
+        onClick && "cursor-pointer"
+      )}
+    >
       <div className={`h-14 w-14 ${accentColor} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
         {icon}
       </div>

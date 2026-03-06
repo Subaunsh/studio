@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -28,6 +29,7 @@ export function ChatContainer({ chatId }: ChatContainerProps) {
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { speak } = useSpeech();
+  const greetingRef = useRef(false);
 
   useEffect(() => {
     if (!user || !chatId) {
@@ -52,6 +54,14 @@ export function ChatContainer({ chatId }: ChatContainerProps) {
   }, [user, chatId]);
 
   useEffect(() => {
+    // Initial voice greeting when entering the empty chat bot state
+    if (!chatId && messages.length === 0 && !greetingRef.current) {
+      speak("Hello I am Nova. How may I help you?");
+      greetingRef.current = true;
+    }
+  }, [chatId, messages.length, speak]);
+
+  useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -70,7 +80,6 @@ export function ChatContainer({ chatId }: ChatContainerProps) {
         lastMessageAt: serverTimestamp(),
       });
       currentChatId = chatRef.id;
-      // Ideally trigger a route change here or update parent state
     }
 
     // Save user message
