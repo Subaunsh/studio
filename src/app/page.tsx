@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useAuth, AuthProvider } from "@/components/auth/auth-context";
@@ -28,9 +29,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 function LandingPage() {
   const { signInWithGoogle } = useAuth();
+  const { toast } = useToast();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('dark');
@@ -51,6 +55,15 @@ function LandingPage() {
     setCurrentTheme(theme);
   };
 
+  const handlePendingClick = (e: React.MouseEvent, section: string) => {
+    e.preventDefault();
+    toast({
+      variant: "destructive",
+      title: "Work Pending",
+      description: `The ${section} section is currently under development. Stay tuned!`,
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
       {/* Navigation */}
@@ -62,11 +75,35 @@ function LandingPage() {
           </a>
           <div className="hidden lg:flex items-center gap-8 text-sm font-medium text-muted-foreground">
             <a href="/" className="hover:text-primary transition-colors">Home</a>
-            <a href="#about" className="hover:text-primary transition-colors">About</a>
+            <a 
+              href="#about" 
+              onClick={(e) => handlePendingClick(e, "About")} 
+              className="hover:text-primary transition-colors"
+            >
+              About
+            </a>
             <a href="#features" className="hover:text-primary transition-colors">Features</a>
-            <a href="#security" className="hover:text-primary transition-colors">Security</a>
-            <a href="#pricing" className="hover:text-primary transition-colors">Pricing</a>
-            <a href="#contacts" className="hover:text-primary transition-colors">Contacts</a>
+            <a 
+              href="#security" 
+              onClick={(e) => handlePendingClick(e, "Security")} 
+              className="hover:text-primary transition-colors"
+            >
+              Security
+            </a>
+            <a 
+              href="#pricing" 
+              onClick={(e) => handlePendingClick(e, "Pricing")} 
+              className="hover:text-primary transition-colors"
+            >
+              Pricing
+            </a>
+            <a 
+              href="#contacts" 
+              onClick={(e) => handlePendingClick(e, "Contacts")} 
+              className="hover:text-primary transition-colors"
+            >
+              Contacts
+            </a>
           </div>
           <div className="flex items-center gap-2">
             <Button 
@@ -330,6 +367,7 @@ export default function Home() {
   return (
     <AuthProvider>
       <ChatAppContent />
+      <Toaster />
     </AuthProvider>
   );
 }
