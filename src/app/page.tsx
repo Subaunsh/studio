@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useAuth, AuthProvider } from "@/components/auth/auth-context";
@@ -12,12 +11,10 @@ import {
   Bot, 
   Sparkles, 
   MessageSquare, 
-  ShieldCheck, 
   Mic, 
   ArrowRight,
   Zap,
   Globe,
-  Lock,
   Image as ImageIcon,
   LayoutGrid,
   ChevronRight
@@ -29,7 +26,6 @@ function LandingPage() {
   const { signInWithGoogle } = useAuth();
   
   const heroImage = PlaceHolderImages.find(img => img.id === "hero-ai");
-  const secureImage = PlaceHolderImages.find(img => img.id === "feature-secure");
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
@@ -42,7 +38,6 @@ function LandingPage() {
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
             <a href="#features" className="hover:text-primary transition-colors">Features</a>
-            <a href="#security" className="hover:text-primary transition-colors">Security</a>
             <a href="#pricing" className="hover:text-primary transition-colors">Pricing</a>
           </div>
           <Button onClick={signInWithGoogle} variant="default" size="sm" className="rounded-full px-6 font-bold shadow-lg shadow-primary/20">
@@ -63,7 +58,7 @@ function LandingPage() {
               Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0">
-              Nova AI combines next-generation reasoning with seamless voice interaction, image generation, and rock-solid privacy. Experience intelligence that actually understands you.
+              Nova AI combines next-generation reasoning with seamless voice interaction, image generation, and a powerful suite of productivity tools. Experience intelligence that actually understands you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button onClick={signInWithGoogle} size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold shadow-xl shadow-primary/25 hover:scale-[1.03] transition-transform">
@@ -150,44 +145,6 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* Security Section */}
-      <section id="security" className="py-24">
-        <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-20 items-center">
-          <div className="order-2 lg:order-1 relative">
-            <div className="aspect-square rounded-[3rem] overflow-hidden border border-border shadow-2xl relative">
-              {secureImage && (
-                <Image 
-                  src={secureImage.imageUrl} 
-                  alt={secureImage.description} 
-                  fill 
-                  className="object-cover"
-                  data-ai-hint={secureImage.imageHint}
-                />
-              )}
-            </div>
-            <div className="absolute -bottom-6 -right-6 bg-card p-6 rounded-3xl border shadow-2xl max-w-xs space-y-3">
-               <Lock className="text-primary h-8 w-8" />
-               <h4 className="font-bold text-lg">Privacy First</h4>
-               <p className="text-xs text-muted-foreground leading-relaxed">We never train our models on your private data. Your conversations are encrypted and yours alone.</p>
-            </div>
-          </div>
-          
-          <div className="order-1 lg:order-2 space-y-8">
-            <h2 className="text-4xl md:text-5xl font-black font-headline leading-tight">Your data. <br/>Your security. <br/><span className="text-primary">Our priority.</span></h2>
-            <div className="space-y-4">
-              <CheckItem text="AES-256 Military grade encryption" />
-              <CheckItem text="No personal data harvesting" />
-              <CheckItem text="Self-destructing chat history options" />
-              <CheckItem text="Compliant with global privacy standards" />
-            </div>
-            <Button onClick={signInWithGoogle} variant="outline" className="h-12 rounded-xl px-6 group">
-              Learn about our Security
-              <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="py-12 border-t mt-12">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
@@ -226,17 +183,6 @@ function FeatureCard({
       </div>
       <h3 className="text-xl font-bold mb-3">{title}</h3>
       <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
-    </div>
-  );
-}
-
-function CheckItem({ text }: { text: string }) {
-  return (
-    <div className="flex items-center gap-3">
-      <div className="h-6 w-6 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
-        <Sparkles size={12} />
-      </div>
-      <span className="font-medium text-lg">{text}</span>
     </div>
   );
 }
