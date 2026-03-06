@@ -14,11 +14,21 @@ import {
   ArrowRight,
   ImageIcon,
   LayoutGrid,
-  Settings
+  Settings,
+  LogIn,
+  UserPlus
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 function LandingPage() {
   const { signInWithGoogle } = useAuth();
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
@@ -41,7 +51,7 @@ function LandingPage() {
             <Button variant="ghost" size="icon" className="rounded-full text-muted-foreground hover:text-primary">
               <Settings size={20} />
             </Button>
-            <Button onClick={signInWithGoogle} variant="default" size="sm" className="rounded-full px-6 font-bold shadow-lg shadow-primary/20">
+            <Button onClick={() => setIsAuthModalOpen(true)} variant="default" size="sm" className="rounded-full px-6 font-bold shadow-lg shadow-primary/20">
               Sign In
             </Button>
           </div>
@@ -55,14 +65,14 @@ function LandingPage() {
             <Sparkles size={14} />
             The Future of Personal Intelligence
           </div>
-          <h1 className="text-3xl md:text-5xl font-black font-headline leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_20px_rgba(var(--primary),0.4)] hover:scale-[1.03] transition-transform duration-300">
+          <h1 className="text-3xl md:text-5xl font-black font-headline leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_20px_rgba(var(--primary),0.4)] hover:scale-[1.03] hover:drop-shadow-[0_0_30px_rgba(var(--primary),0.6)] transition-all duration-300">
             Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
           </h1>
-          <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+          <p className="text-xs md:text-sm text-muted-foreground leading-relaxed max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
             Nova AI combines next-generation reasoning with seamless voice interaction, image generation, and a powerful suite of productivity tools. Experience intelligence that actually understands you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-500">
-            <Button onClick={signInWithGoogle} size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold shadow-xl shadow-primary/25 hover:scale-[1.03] transition-transform">
+            <Button onClick={() => setIsAuthModalOpen(true)} size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold shadow-xl shadow-primary/25 hover:scale-[1.03] transition-transform">
               Get Started for Free
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -121,6 +131,47 @@ function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Auth Modal */}
+      <Dialog open={isAuthModalOpen} onOpenChange={setIsAuthModalOpen}>
+        <DialogContent className="sm:max-w-[400px] rounded-[2rem] p-8">
+          <DialogHeader className="space-y-4 mb-6">
+            <div className="flex justify-center">
+              <div className="h-12 w-12 bg-primary rounded-2xl flex items-center justify-center text-primary-foreground text-2xl font-black">N</div>
+            </div>
+            <DialogTitle className="text-2xl font-black text-center">Welcome to Nova</DialogTitle>
+            <DialogDescription className="text-center">
+              Choose an option to continue your journey with the world's most advanced AI assistant.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4">
+            <Button 
+              onClick={() => {
+                signInWithGoogle();
+                setIsAuthModalOpen(false);
+              }} 
+              className="h-12 rounded-xl font-bold gap-2"
+            >
+              <LogIn size={18} />
+              Sign In with Google
+            </Button>
+            <Button 
+              onClick={() => {
+                signInWithGoogle();
+                setIsAuthModalOpen(false);
+              }} 
+              variant="outline" 
+              className="h-12 rounded-xl font-bold gap-2 border-2"
+            >
+              <UserPlus size={18} />
+              Create New Account
+            </Button>
+          </div>
+          <p className="text-[10px] text-center text-muted-foreground mt-6">
+            By continuing, you agree to Nova's Terms of Service and Privacy Policy.
+          </p>
+        </DialogContent>
+      </Dialog>
 
       {/* Footer */}
       <footer className="py-12 border-t mt-12">
