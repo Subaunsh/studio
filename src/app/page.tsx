@@ -7,26 +7,18 @@ import { ChatContainer } from "@/components/chat/chat-container";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { 
-  LogIn, 
   Bot, 
   Sparkles, 
   MessageSquare, 
   Mic, 
   ArrowRight,
-  Zap,
-  Globe,
-  Image as ImageIcon,
-  LayoutGrid,
-  ChevronRight
+  ImageIcon,
+  LayoutGrid
 } from "lucide-react";
-import Image from "next/image";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 function LandingPage() {
   const { signInWithGoogle } = useAuth();
   
-  const heroImage = PlaceHolderImages.find(img => img.id === "hero-ai");
-
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
       {/* Navigation */}
@@ -47,61 +39,36 @@ function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase border border-primary/20">
-              <Sparkles size={14} />
-              The Future of Personal Intelligence
-            </div>
-            <h1 className="text-5xl md:text-7xl font-black font-headline leading-[1.1] tracking-tight">
-              Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0">
-              Nova AI combines next-generation reasoning with seamless voice interaction, image generation, and a powerful suite of productivity tools. Experience intelligence that actually understands you.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button onClick={signInWithGoogle} size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold shadow-xl shadow-primary/25 hover:scale-[1.03] transition-transform">
-                Get Started for Free
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button variant="outline" size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold border-2 hover:bg-muted/50">
-                How it works
-              </Button>
-            </div>
-            <div className="flex items-center justify-center lg:justify-start gap-6 pt-4 text-muted-foreground/60">
-              <div className="flex -space-x-3">
-                {[1, 2, 3, 4].map(i => (
-                  <div key={i} className="h-10 w-10 rounded-full border-2 border-background bg-muted flex items-center justify-center overflow-hidden">
-                    <img src={`https://picsum.photos/seed/user-${i}/40/40`} alt="User" />
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm font-medium">Trusted by 50,000+ pioneers</p>
-            </div>
+      <section className="pt-40 pb-20 px-4">
+        <div className="max-w-4xl mx-auto text-center space-y-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase border border-primary/20 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <Sparkles size={14} />
+            The Future of Personal Intelligence
           </div>
-          
-          <div className="relative group">
-             <div className="absolute -inset-4 bg-primary/20 rounded-[2rem] blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-1000"></div>
-             <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-border/50 shadow-2xl bg-card">
-               {heroImage && (
-                 <Image 
-                   src={heroImage.imageUrl} 
-                   alt={heroImage.description}
-                   fill
-                   className="object-cover group-hover:scale-105 transition-transform duration-1000"
-                   data-ai-hint={heroImage.imageHint}
-                 />
-               )}
-               <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
-               <div className="absolute bottom-8 left-8 right-8 p-6 bg-card/60 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center text-white"><Bot size={18} /></div>
-                    <span className="font-bold">Nova AI</span>
-                  </div>
-                  <p className="text-sm italic text-muted-foreground">"I've generated the architectural concepts for your project and summarized the market trends. What's next?"</p>
-               </div>
-             </div>
+          <h1 className="text-5xl md:text-8xl font-black font-headline leading-[1] tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150">
+            Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+            Nova AI combines next-generation reasoning with seamless voice interaction, image generation, and a powerful suite of productivity tools. Experience intelligence that actually understands you.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-500">
+            <Button onClick={signInWithGoogle} size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold shadow-xl shadow-primary/25 hover:scale-[1.03] transition-transform">
+              Get Started for Free
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button variant="outline" size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold border-2 hover:bg-muted/50">
+              How it works
+            </Button>
+          </div>
+          <div className="flex items-center justify-center gap-6 pt-8 text-muted-foreground/60 animate-in fade-in duration-1000 delay-700">
+            <div className="flex -space-x-3">
+              {[1, 2, 3, 4].map(i => (
+                <div key={i} className="h-10 w-10 rounded-full border-2 border-background bg-muted flex items-center justify-center overflow-hidden">
+                  <img src={`https://picsum.photos/seed/user-${i}/40/40`} alt="User" />
+                </div>
+              ))}
+            </div>
+            <p className="text-sm font-medium">Trusted by 50,000+ pioneers</p>
           </div>
         </div>
       </section>
