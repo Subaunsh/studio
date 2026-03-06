@@ -1,3 +1,22 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-ai",
+      "description": "Sleek futuristic AI visualization",
+      "imageUrl": "https://picsum.photos/seed/nova-hero/1200/800",
+      "imageHint": "futuristic artificial intelligence"
+    },
+    {
+      "id": "feature-secure",
+      "description": "Security and encryption concept",
+      "imageUrl": "https://picsum.photos/seed/nova-secure/600/400",
+      "imageHint": "digital security"
+    },
+    {
+      "id": "feature-voice",
+      "description": "Voice waveform and audio interaction",
+      "imageUrl": "https://picsum.photos/seed/nova-voice/600/400",
+      "imageHint": "voice assistant"
+    }
+  ]
 }
