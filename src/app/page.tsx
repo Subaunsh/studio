@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useAuth, AuthProvider } from "@/components/auth/auth-context";
@@ -20,7 +19,7 @@ import {
   UserPlus,
   Sun,
   Moon,
-  Monitor
+  AlertCircle
 } from "lucide-react";
 import {
   Dialog,
@@ -58,9 +57,13 @@ function LandingPage() {
   const handlePendingClick = (e: React.MouseEvent, section: string) => {
     e.preventDefault();
     toast({
-      variant: "destructive",
-      title: "Work Pending",
-      description: `The ${section} section is currently under development. Stay tuned!`,
+      className: "bg-white text-red-600 border-red-100 py-2 px-4 shadow-xl min-h-0 h-10 flex items-center justify-center",
+      description: (
+        <div className="flex items-center gap-2 text-[10px] font-bold whitespace-nowrap uppercase tracking-wider">
+          <AlertCircle size={14} className="shrink-0" />
+          <span>Work on {section} section is currently pending</span>
+        </div>
+      ),
     });
   };
 
@@ -128,10 +131,10 @@ function LandingPage() {
             <Sparkles size={14} />
             The Future of Personal Intelligence
           </div>
-          <h1 className="text-3xl md:text-5xl font-black font-headline leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_20px_rgba(var(--primary),0.4)] hover:scale-[1.03] hover:drop-shadow-[0_0_30px_rgba(var(--primary),0.6)] transition-all duration-300">
+          <h1 className="text-2xl md:text-4xl font-black font-headline leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:scale-[1.03] hover:drop-shadow-[0_0_25px_rgba(var(--primary),0.6)] transition-all duration-300">
             Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
           </h1>
-          <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+          <p className="text-[10px] md:text-[11px] text-muted-foreground leading-relaxed max-w-xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
             Nova AI combines next-generation reasoning with seamless voice interaction, image generation, and a powerful suite of productivity tools. Experience intelligence that actually understands you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-500">
