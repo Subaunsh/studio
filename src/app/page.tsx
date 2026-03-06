@@ -13,7 +13,8 @@ import {
   Mic, 
   ArrowRight,
   ImageIcon,
-  LayoutGrid
+  LayoutGrid,
+  Settings
 } from "lucide-react";
 
 function LandingPage() {
@@ -36,9 +37,14 @@ function LandingPage() {
             <a href="#pricing" className="hover:text-primary transition-colors">Pricing</a>
             <a href="#contacts" className="hover:text-primary transition-colors">Contacts</a>
           </div>
-          <Button onClick={signInWithGoogle} variant="default" size="sm" className="rounded-full px-6 font-bold shadow-lg shadow-primary/20">
-            Sign In
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" className="rounded-full text-muted-foreground hover:text-primary">
+              <Settings size={20} />
+            </Button>
+            <Button onClick={signInWithGoogle} variant="default" size="sm" className="rounded-full px-6 font-bold shadow-lg shadow-primary/20">
+              Sign In
+            </Button>
+          </div>
         </div>
       </nav>
 
