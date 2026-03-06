@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useAuth, AuthProvider } from "@/components/auth/auth-context";
@@ -19,7 +20,13 @@ import {
   UserPlus,
   Sun,
   Moon,
-  AlertCircle
+  AlertCircle,
+  Send,
+  User,
+  Phone,
+  Mail,
+  MessageCircle,
+  ThumbsUp
 } from "lucide-react";
 import {
   Dialog,
@@ -30,6 +37,9 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 function LandingPage() {
   const { signInWithGoogle } = useAuth();
@@ -67,8 +77,17 @@ function LandingPage() {
     });
   };
 
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Message Sent",
+      description: "Thank you for reaching out! We'll get back to you soon.",
+    });
+    (e.target as HTMLFormElement).reset();
+  };
+
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 scroll-smooth">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -100,13 +119,7 @@ function LandingPage() {
             >
               Pricing
             </a>
-            <a 
-              href="#contacts" 
-              onClick={(e) => handlePendingClick(e, "Contacts")} 
-              className="hover:text-primary transition-colors"
-            >
-              Contacts
-            </a>
+            <a href="#contacts" className="hover:text-primary transition-colors">Contacts</a>
           </div>
           <div className="flex items-center gap-2">
             <Button 
@@ -131,7 +144,7 @@ function LandingPage() {
             <Sparkles size={14} />
             The Future of Personal Intelligence
           </div>
-          <h1 className="text-2xl md:text-4xl font-black font-headline leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:scale-[1.03] hover:drop-shadow-[0_0_25px_rgba(var(--primary),0.6)] transition-all duration-300">
+          <h1 className="text-2xl md:text-3xl font-black font-headline leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:scale-[1.03] hover:drop-shadow-[0_0_25px_rgba(var(--primary),0.6)] transition-all duration-300">
             Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
           </h1>
           <p className="text-[10px] md:text-[11px] text-muted-foreground leading-relaxed max-w-xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
@@ -194,6 +207,67 @@ function LandingPage() {
               description="A powerhouse of productivity. Code generation, document analysis, and data extraction at your fingertips."
               accentColor="bg-purple-500/10"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contacts" className="py-24 px-4 relative overflow-hidden">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-3xl md:text-5xl font-black font-headline tracking-tight">Connect with Us</h2>
+            <p className="text-muted-foreground text-lg">
+              Have questions or feedback? We'd love to hear from you.
+            </p>
+          </div>
+
+          <div className="bg-card border border-border/50 rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative">
+            <div className="absolute top-0 right-0 p-8 text-primary/10 -z-10">
+              <MessageCircle size={120} />
+            </div>
+            
+            <form onSubmit={handleContactSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                    <User size={14} className="text-primary" /> Full Name
+                  </Label>
+                  <Input id="name" required placeholder="John Doe" className="h-12 rounded-xl bg-background border-2 focus:border-primary transition-all" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="phone" className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                    <Phone size={14} className="text-primary" /> Phone Number
+                  </Label>
+                  <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" className="h-12 rounded-xl bg-background border-2 focus:border-primary transition-all" />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                  <Mail size={14} className="text-primary" /> Email Address
+                </Label>
+                <Input id="email" type="email" required placeholder="john@example.com" className="h-12 rounded-xl bg-background border-2 focus:border-primary transition-all" />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="issues" className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                  <AlertCircle size={14} className="text-primary" /> Describe your Issues
+                </Label>
+                <Textarea id="issues" placeholder="What's on your mind?" className="min-h-[120px] rounded-xl bg-background border-2 focus:border-primary transition-all resize-none" />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="experience" className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                  <ThumbsUp size={14} className="text-primary" /> Your Experience
+                </Label>
+                <Textarea id="experience" placeholder="Tell us about your experience with Nova..." className="min-h-[100px] rounded-xl bg-background border-2 focus:border-primary transition-all resize-none" />
+              </div>
+
+              <Button type="submit" className="w-full h-14 rounded-2xl text-lg font-bold shadow-xl shadow-primary/20 hover:scale-[1.01] transition-transform flex items-center justify-center gap-2">
+                Send Message
+                <Send size={18} />
+              </Button>
+            </form>
           </div>
         </div>
       </section>
