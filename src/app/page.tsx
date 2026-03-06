@@ -35,12 +35,12 @@ function LandingPage() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2 font-black text-2xl tracking-tighter text-primary">
+          <a href="/" className="flex items-center gap-2 font-black text-2xl tracking-tighter text-primary hover:opacity-80 transition-opacity">
              <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground">N</div>
              <span>NOVA</span>
-          </div>
+          </a>
           <div className="hidden lg:flex items-center gap-8 text-sm font-medium text-muted-foreground">
-            <a href="#" className="hover:text-primary transition-colors">Home</a>
+            <a href="/" className="hover:text-primary transition-colors">Home</a>
             <a href="#about" className="hover:text-primary transition-colors">About</a>
             <a href="#features" className="hover:text-primary transition-colors">Features</a>
             <a href="#security" className="hover:text-primary transition-colors">Security</a>
@@ -68,7 +68,7 @@ function LandingPage() {
           <h1 className="text-3xl md:text-5xl font-black font-headline leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_20px_rgba(var(--primary),0.4)] hover:scale-[1.03] hover:drop-shadow-[0_0_30px_rgba(var(--primary),0.6)] transition-all duration-300">
             Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
           </h1>
-          <p className="text-xs md:text-sm text-muted-foreground leading-relaxed max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+          <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
             Nova AI combines next-generation reasoning with seamless voice interaction, image generation, and a powerful suite of productivity tools. Experience intelligence that actually understands you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-500">
@@ -176,10 +176,10 @@ function LandingPage() {
       {/* Footer */}
       <footer className="py-12 border-t mt-12">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-2 font-black text-xl text-primary opacity-50">
+          <a href="/" className="flex items-center gap-2 font-black text-xl text-primary opacity-50 hover:opacity-100 transition-opacity">
              <div className="h-6 w-6 bg-primary rounded flex items-center justify-center text-primary-foreground">N</div>
              <span>NOVA</span>
-          </div>
+          </a>
           <div className="flex gap-8 text-sm text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">Twitter</a>
             <a href="#" className="hover:text-primary transition-colors">GitHub</a>
