@@ -145,7 +145,7 @@ function LandingPage() {
             <Sparkles size={14} />
             The Future of Personal Intelligence
           </div>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black font-headline leading-[1.1] tracking-tighter animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:scale-[1.03] hover:drop-shadow-[0_0_25px_rgba(var(--primary),0.6)] transition-all duration-300">
+          <h1 className="text-5xl md:text-8xl font-black font-headline leading-[1.1] tracking-tighter animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:scale-[1.03] hover:drop-shadow-[0_0_25px_rgba(var(--primary),0.6)] transition-all duration-300">
             Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
           </h1>
           <p className="text-[20px] text-muted-foreground leading-relaxed max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
@@ -284,9 +284,9 @@ function LandingPage() {
             <div className="flex justify-center">
               <div className="h-12 w-12 bg-primary rounded-2xl flex items-center justify-center text-primary-foreground text-2xl font-black">N</div>
             </div>
-            <DialogTitle className="text-2xl font-black text-center">Welcome to Nova</DialogTitle>
+            <DialogTitle className="text-2xl font-black text-center">Get Started</DialogTitle>
             <DialogDescription className="text-center">
-              Choose an option to continue your journey with the world's most advanced AI assistant.
+              Choose an option to continue your journey with Nova.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
@@ -309,7 +309,7 @@ function LandingPage() {
               className="h-12 rounded-xl font-bold gap-2 border-2"
             >
               <UserPlus size={18} />
-              Create New Account
+              Sign Up with Google
             </Button>
           </div>
           <p className="text-[10px] text-center text-muted-foreground mt-6">
