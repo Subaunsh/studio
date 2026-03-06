@@ -1,20 +1,18 @@
+
 "use client";
 
-import { useAuth } from "@/components/auth/auth-context";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { 
   MessageSquare, 
   Plus, 
-  Settings, 
-  User, 
-  LogOut, 
-  Moon, 
-  Sun,
+  Sun, 
+  Moon,
   History,
   Trash2,
-  MoreVertical
+  MoreVertical,
+  Home
 } from "lucide-react";
 import { 
   Sidebar, 
@@ -26,10 +24,8 @@ import {
   SidebarHeader, 
   SidebarMenu, 
   SidebarMenuButton, 
-  SidebarMenuItem,
-  SidebarSeparator
+  SidebarMenuItem
 } from "@/components/ui/sidebar";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 interface Chat {
@@ -41,18 +37,18 @@ interface Chat {
 interface AppSidebarProps {
   currentChatId: string | null;
   onSelectChat: (id: string | null) => void;
+  onExitApp: () => void;
 }
 
-export function AppSidebar({ currentChatId, onSelectChat }: AppSidebarProps) {
-  const { user, logout } = useAuth();
+export function AppSidebar({ currentChatId, onSelectChat, onExitApp }: AppSidebarProps) {
   const [chats, setChats] = useState<Chat[]>([]);
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
-    if (!user) return;
-
+    // For unauthenticated version, we use a fixed guest-user path or local storage
+    // Here we use 'guest-user' as a default bucket for demonstration
     const q = query(
-      collection(db, "users", user.uid, "chats"),
+      collection(db, "users", "guest-user", "chats"),
       orderBy("lastMessageAt", "desc")
     );
 
@@ -65,7 +61,7 @@ export function AppSidebar({ currentChatId, onSelectChat }: AppSidebarProps) {
     });
 
     return () => unsubscribe();
-  }, [user]);
+  }, []);
 
   const toggleTheme = () => {
     const root = document.documentElement;
@@ -145,43 +141,16 @@ export function AppSidebar({ currentChatId, onSelectChat }: AppSidebarProps) {
       <SidebarFooter className="p-4">
         <SidebarMenu>
           <SidebarMenuItem>
+             <SidebarMenuButton onClick={onExitApp} tooltip="Home">
+                <Home />
+                <span>Back to Home</span>
+             </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
              <SidebarMenuButton onClick={toggleTheme} tooltip="Toggle Theme">
                 {isDarkMode ? <Sun /> : <Moon />}
                 <span>{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
              </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton className="h-12 mt-2">
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src={user?.photoURL || ""} />
-                    <AvatarFallback className="bg-primary/10 text-primary font-bold">
-                      {user?.displayName?.charAt(0) || "U"}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col items-start text-xs truncate">
-                    <span className="font-semibold">{user?.displayName || "User"}</span>
-                    <span className="text-muted-foreground">{user?.email || ""}</span>
-                  </div>
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent side="right" align="bottom" className="w-56 mb-2">
-                <DropdownMenuItem className="flex items-center gap-2">
-                  <User size={16} />
-                  Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-2">
-                  <Settings size={16} />
-                  Settings
-                </DropdownMenuItem>
-                <SidebarSeparator className="my-1" />
-                <DropdownMenuItem onClick={logout} className="flex items-center gap-2 text-destructive">
-                  <LogOut size={16} />
-                  Logout
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>

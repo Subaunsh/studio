@@ -4,7 +4,6 @@
 import { useState, useEffect, useRef } from "react";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, updateDoc } from "firebase/firestore";
-import { useAuth } from "@/components/auth/auth-context";
 import { MessageBubble, TypingBubble } from "./message-bubble";
 import { ChatInput } from "./chat-input";
 import { receiveAIMessageResponse } from "@/ai/flows/receive-ai-message-response";
@@ -24,21 +23,23 @@ interface ChatContainerProps {
 }
 
 export function ChatContainer({ chatId }: ChatContainerProps) {
-  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { speak } = useSpeech();
   const greetingRef = useRef(false);
+  
+  // Using a fixed guest-user ID for the open version
+  const GUEST_UID = "guest-user";
 
   useEffect(() => {
-    if (!user || !chatId) {
+    if (!chatId) {
       setMessages([]);
       return;
     }
 
     const q = query(
-      collection(db, "users", user.uid, "chats", chatId, "messages"),
+      collection(db, "users", GUEST_UID, "chats", chatId, "messages"),
       orderBy("timestamp", "asc")
     );
 
@@ -51,10 +52,9 @@ export function ChatContainer({ chatId }: ChatContainerProps) {
     });
 
     return () => unsubscribe();
-  }, [user, chatId]);
+  }, [chatId]);
 
   useEffect(() => {
-    // Initial voice greeting when entering the empty chat bot state
     if (!chatId && messages.length === 0 && !greetingRef.current) {
       speak("Hello I am Nova. How may I help you?");
       greetingRef.current = true;
@@ -68,13 +68,10 @@ export function ChatContainer({ chatId }: ChatContainerProps) {
   }, [messages, isTyping]);
 
   const handleSendMessage = async (text: string) => {
-    if (!user) return;
-
     let currentChatId = chatId;
 
-    // Create a new chat if none exists
     if (!currentChatId) {
-      const chatRef = await addDoc(collection(db, "users", user.uid, "chats"), {
+      const chatRef = await addDoc(collection(db, "users", GUEST_UID, "chats"), {
         title: text.slice(0, 30) + (text.length > 30 ? "..." : ""),
         createdAt: serverTimestamp(),
         lastMessageAt: serverTimestamp(),
@@ -82,15 +79,13 @@ export function ChatContainer({ chatId }: ChatContainerProps) {
       currentChatId = chatRef.id;
     }
 
-    // Save user message
-    await addDoc(collection(db, "users", user.uid, "chats", currentChatId, "messages"), {
+    await addDoc(collection(db, "users", GUEST_UID, "chats", currentChatId, "messages"), {
       role: "user",
       content: text,
       timestamp: serverTimestamp(),
     });
 
-    // Update last message time
-    await updateDoc(doc(db, "users", user.uid, "chats", currentChatId), {
+    await updateDoc(doc(db, "users", GUEST_UID, "chats", currentChatId), {
       lastMessageAt: serverTimestamp(),
     });
 
@@ -99,14 +94,13 @@ export function ChatContainer({ chatId }: ChatContainerProps) {
     try {
       const aiResponse = await receiveAIMessageResponse({ message: text });
       
-      await addDoc(collection(db, "users", user.uid, "chats", currentChatId, "messages"), {
+      await addDoc(collection(db, "users", GUEST_UID, "chats", currentChatId, "messages"), {
         role: "assistant",
         content: aiResponse.response,
         timestamp: serverTimestamp(),
       });
 
-      // Update last message time again
-      await updateDoc(doc(db, "users", user.uid, "chats", currentChatId), {
+      await updateDoc(doc(db, "users", GUEST_UID, "chats", currentChatId), {
         lastMessageAt: serverTimestamp(),
       });
     } catch (error) {
