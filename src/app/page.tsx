@@ -4,7 +4,7 @@ import { useAuth, AuthProvider } from "@/components/auth/auth-context";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/layout/app-sidebar";
 import { ChatContainer } from "@/components/chat/chat-container";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { 
   Bot, 
@@ -16,7 +16,10 @@ import {
   LayoutGrid,
   Settings,
   LogIn,
-  UserPlus
+  UserPlus,
+  Sun,
+  Moon,
+  Monitor
 } from "lucide-react";
 import {
   Dialog,
@@ -29,7 +32,25 @@ import {
 function LandingPage() {
   const { signInWithGoogle } = useAuth();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('dark');
+
+  useEffect(() => {
+    // Check initial theme
+    const isDark = document.documentElement.classList.contains('dark');
+    setCurrentTheme(isDark ? 'dark' : 'light');
+  }, []);
+
+  const setTheme = (theme: 'light' | 'dark') => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    setCurrentTheme(theme);
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
       {/* Navigation */}
@@ -48,7 +69,12 @@ function LandingPage() {
             <a href="#contacts" className="hover:text-primary transition-colors">Contacts</a>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="rounded-full text-muted-foreground hover:text-primary">
+            <Button 
+              onClick={() => setIsSettingsModalOpen(true)} 
+              variant="ghost" 
+              size="icon" 
+              className="rounded-full text-muted-foreground hover:text-primary"
+            >
               <Settings size={20} />
             </Button>
             <Button onClick={() => setIsAuthModalOpen(true)} variant="default" size="sm" className="rounded-full px-6 font-bold shadow-lg shadow-primary/20">
@@ -170,6 +196,48 @@ function LandingPage() {
           <p className="text-[10px] text-center text-muted-foreground mt-6">
             By continuing, you agree to Nova's Terms of Service and Privacy Policy.
           </p>
+        </DialogContent>
+      </Dialog>
+
+      {/* Settings Modal */}
+      <Dialog open={isSettingsModalOpen} onOpenChange={setIsSettingsModalOpen}>
+        <DialogContent className="sm:max-w-[400px] rounded-[2rem] p-8">
+          <DialogHeader className="space-y-4 mb-6">
+            <div className="flex justify-center">
+              <div className="h-12 w-12 bg-muted rounded-2xl flex items-center justify-center text-primary">
+                <Settings size={28} />
+              </div>
+            </div>
+            <DialogTitle className="text-2xl font-black text-center">Appearance</DialogTitle>
+            <DialogDescription className="text-center">
+              Customize how Nova looks on your screen.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-2 gap-4">
+            <Button 
+              variant={currentTheme === 'light' ? 'default' : 'outline'}
+              onClick={() => setTheme('light')}
+              className="h-24 rounded-2xl flex flex-col gap-2 font-bold border-2"
+            >
+              <Sun size={24} />
+              Day Mode
+            </Button>
+            <Button 
+              variant={currentTheme === 'dark' ? 'default' : 'outline'}
+              onClick={() => setTheme('dark')}
+              className="h-24 rounded-2xl flex flex-col gap-2 font-bold border-2"
+            >
+              <Moon size={24} />
+              Night Mode
+            </Button>
+          </div>
+          <Button 
+            variant="ghost" 
+            onClick={() => setIsSettingsModalOpen(false)}
+            className="mt-6 w-full rounded-xl font-bold"
+          >
+            Close
+          </Button>
         </DialogContent>
       </Dialog>
 
