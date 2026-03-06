@@ -45,7 +45,7 @@ function LandingPage() {
             <Sparkles size={14} />
             The Future of Personal Intelligence
           </div>
-          <h1 className="text-5xl md:text-8xl font-black font-headline leading-[1] tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150">
+          <h1 className="text-4xl md:text-6xl font-black font-headline leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 hover:scale-[1.02] hover:text-primary/90 transition-all duration-300 cursor-default">
             Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
