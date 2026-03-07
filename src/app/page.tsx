@@ -25,7 +25,9 @@ import {
   Mail,
   MessageCircle,
   ThumbsUp,
-  UserCircle
+  UserCircle,
+  LogIn,
+  UserPlus
 } from "lucide-react";
 import {
   Dialog,
@@ -44,6 +46,7 @@ import { cn } from "@/lib/utils";
 function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
   const { toast } = useToast();
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('dark');
 
   useEffect(() => {
@@ -83,6 +86,11 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
     (e.target as HTMLFormElement).reset();
   };
 
+  const handleAuthAction = () => {
+    setIsAuthModalOpen(false);
+    onEnterApp();
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 scroll-smooth">
       {/* Navigation */}
@@ -110,7 +118,7 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
               <Settings size={20} />
             </Button>
             <Button 
-              onClick={onEnterApp} 
+              onClick={() => setIsAuthModalOpen(true)} 
               variant="default" 
               size="icon" 
               className="rounded-full h-10 w-10 shadow-lg shadow-primary/20 hover:scale-110 transition-transform"
@@ -129,14 +137,14 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
             <Sparkles size={14} />
             The Future of Personal Intelligence
           </div>
-          <h1 className="text-[48px] md:text-[80px] font-black font-headline leading-[1.1] tracking-tighter animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:scale-[1.03] transition-all duration-300">
+          <h1 className="text-[40px] md:text-[80px] font-black font-headline leading-[1.1] tracking-tighter animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:scale-[1.03] transition-all duration-300">
             Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
           </h1>
-          <p className="text-[24px] text-muted-foreground leading-relaxed max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+          <p className="text-[20px] text-muted-foreground leading-relaxed max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
             Nova AI combines next-generation reasoning with seamless voice interaction, image generation, and a powerful suite of productivity tools. Experience intelligence that actually understands you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-500">
-            <Button onClick={onEnterApp} size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold shadow-xl shadow-primary/25 hover:scale-[1.03] transition-transform">
+            <Button onClick={() => setIsAuthModalOpen(true)} size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold shadow-xl shadow-primary/25 hover:scale-[1.03] transition-transform">
               Get Started for Free
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -163,28 +171,28 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
               title="AI Image Generator"
               description="Turn text into stunning visuals. From photorealistic renders to abstract art, Nova creates in seconds."
               accentColor="bg-accent/10"
-              onClick={onEnterApp}
+              onClick={() => setIsAuthModalOpen(true)}
             />
             <FeatureCard 
               icon={<MessageSquare className="text-primary" />}
               title="AI Chat System"
               description="Deep reasoning and instant answers. Engage with an assistant that remembers context and nuance."
               accentColor="bg-primary/10"
-              onClick={onEnterApp}
+              onClick={() => setIsAuthModalOpen(true)}
             />
             <FeatureCard 
               icon={<Mic className="text-orange-500" />}
               title="Voice Assistant"
               description="Natural, expressive voice interaction. Nova listens carefully and responds with high-fidelity speech."
               accentColor="bg-orange-500/10"
-              onClick={onEnterApp}
+              onClick={() => setIsAuthModalOpen(true)}
             />
             <FeatureCard 
               icon={<LayoutGrid className="text-purple-500" />}
               title="AI Tools Section"
               description="A powerhouse of productivity. Code generation, document analysis, and data extraction at your fingertips."
               accentColor="bg-purple-500/10"
-              onClick={onEnterApp}
+              onClick={() => setIsAuthModalOpen(true)}
             />
           </div>
         </div>
@@ -250,6 +258,40 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
           </div>
         </div>
       </section>
+
+      {/* Auth Modal */}
+      <Dialog open={isAuthModalOpen} onOpenChange={setIsAuthModalOpen}>
+        <DialogContent className="sm:max-w-[400px] rounded-[2rem] p-8">
+          <DialogHeader className="space-y-4 mb-6">
+            <div className="flex justify-center">
+              <div className="h-14 w-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                <Bot size={32} />
+              </div>
+            </div>
+            <DialogTitle className="text-2xl font-black text-center">Get Started</DialogTitle>
+            <DialogDescription className="text-center">
+              Choose an option to continue to Nova AI Assistant.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4">
+            <Button 
+              onClick={handleAuthAction}
+              className="h-16 rounded-2xl flex items-center gap-3 font-bold text-lg shadow-lg hover:scale-[1.02] transition-transform"
+            >
+              <LogIn size={20} />
+              Log In
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={handleAuthAction}
+              className="h-16 rounded-2xl flex items-center gap-3 font-bold text-lg border-2 hover:bg-muted/50 hover:scale-[1.02] transition-transform"
+            >
+              <UserPlus size={20} />
+              Sign Up
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Settings Modal */}
       <Dialog open={isSettingsModalOpen} onOpenChange={setIsSettingsModalOpen}>
