@@ -145,11 +145,11 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
             <Sparkles size={14} />
             The Future of Personal Intelligence
           </div>
-          <h1 className="text-[56px] md:text-[92px] font-black font-headline leading-[1] tracking-tighter animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_20px_rgba(var(--primary),0.5)] hover:scale-[1.02] transition-all duration-300">
+          <h1 className="text-[64px] md:text-[110px] font-black font-headline leading-[0.9] tracking-tighter animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_20px_rgba(var(--primary),0.5)] hover:scale-[1.02] transition-all duration-300">
             Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
           </h1>
-          <p className="text-[20px] md:text-[20px] text-muted-foreground leading-relaxed max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
-            Nova AI combines next-generation reasoning with seamless voice interaction, image generation, and a powerful suite of productivity tools. Experience intelligence that actually understands you.
+          <p className="text-[20px] md:text-[24px] text-muted-foreground leading-relaxed max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+            Experience the next generation of reasoning with seamless voice interaction, image generation, and productivity tools.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-500">
             <Button onClick={() => setIsAuthModalOpen(true)} size="lg" className="h-14 px-8 rounded-2xl text-lg font-bold shadow-xl shadow-primary/25 hover:scale-[1.03] transition-transform">
@@ -179,34 +179,34 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
               title="AI Image Generator"
               description="Turn text into stunning visuals. From photorealistic renders to abstract art, Nova creates in seconds."
               accentColor="bg-accent/10"
-              onClick={() => setIsAuthModalOpen(true)}
+              onClick={handleAuthAction}
             />
             <FeatureCard 
               icon={<MessageSquare className="text-primary" />}
               title="AI Chat System"
               description="Deep reasoning and instant answers. Engage with an assistant that remembers context and nuance."
               accentColor="bg-primary/10"
-              onClick={() => setIsAuthModalOpen(true)}
+              onClick={handleAuthAction}
             />
             <FeatureCard 
               icon={<Mic className="text-orange-500" />}
               title="Voice Assistant"
               description="Natural, expressive voice interaction. Nova listens carefully and responds with high-fidelity speech."
               accentColor="bg-orange-500/10"
-              onClick={() => setIsAuthModalOpen(true)}
+              onClick={handleAuthAction}
             />
             <FeatureCard 
               icon={<LayoutGrid className="text-purple-500" />}
               title="AI Tools Section"
               description="A powerhouse of productivity. Code generation, document analysis, and data extraction at your fingertips."
               accentColor="bg-purple-500/10"
-              onClick={() => setIsAuthModalOpen(true)}
+              onClick={handleAuthAction}
             />
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
+      {/* Contact Section ... (rest of the file stays same) */}
       <section id="contacts" className="py-24 px-4 relative overflow-hidden">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16 space-y-4">
