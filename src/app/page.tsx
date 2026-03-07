@@ -92,6 +92,10 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
   const handleAuthAction = (e?: React.FormEvent | React.MouseEvent) => {
     e?.preventDefault();
     setIsAuthModalOpen(false);
+    toast({
+      title: "Login Successful",
+      description: "Welcome Subaunsh Shingade",
+    });
     onEnterApp();
   };
 
