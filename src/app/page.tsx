@@ -89,7 +89,7 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
     (e.target as HTMLFormElement).reset();
   };
 
-  const handleAuthAction = (e?: React.FormEvent) => {
+  const handleAuthAction = (e?: React.FormEvent | React.MouseEvent) => {
     e?.preventDefault();
     setIsAuthModalOpen(false);
     onEnterApp();
@@ -288,11 +288,11 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
                 <form onSubmit={handleAuthAction} className="space-y-3">
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input required placeholder="Username" className="h-12 pl-10 rounded-xl bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/50" />
+                    <Input placeholder="Username" className="h-12 pl-10 rounded-xl bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/50" />
                   </div>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input required type="password" placeholder="Password" className="h-12 pl-10 rounded-xl bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/50" />
+                    <Input type="password" placeholder="Password" className="h-12 pl-10 rounded-xl bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/50" />
                   </div>
                   <Button type="submit" className="w-full h-12 rounded-xl font-bold shadow-lg shadow-primary/10 hover:scale-[1.02] transition-transform">
                     Log In
