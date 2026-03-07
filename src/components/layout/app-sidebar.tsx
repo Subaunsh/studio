@@ -2,7 +2,7 @@
 "use client";
 
 import { db } from "@/lib/firebase";
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { 
   MessageSquare, 
@@ -45,8 +45,6 @@ export function AppSidebar({ currentChatId, onSelectChat, onExitApp }: AppSideba
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
-    // For unauthenticated version, we use a fixed guest-user path or local storage
-    // Here we use 'guest-user' as a default bucket for demonstration
     const q = query(
       collection(db, "users", "guest-user", "chats"),
       orderBy("lastMessageAt", "desc")
@@ -67,6 +65,18 @@ export function AppSidebar({ currentChatId, onSelectChat, onExitApp }: AppSideba
     const root = document.documentElement;
     root.classList.toggle("dark");
     setIsDarkMode(!isDarkMode);
+  };
+
+  const handleDeleteChat = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      await deleteDoc(doc(db, "users", "guest-user", "chats", id));
+      if (currentChatId === id) {
+        onSelectChat(null);
+      }
+    } catch (error) {
+      console.error("Error deleting chat:", error);
+    }
   };
 
   return (
@@ -119,7 +129,10 @@ export function AppSidebar({ currentChatId, onSelectChat, onExitApp }: AppSideba
                         </button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem className="text-destructive flex items-center gap-2">
+                        <DropdownMenuItem 
+                          className="text-destructive flex items-center gap-2 cursor-pointer"
+                          onClick={(e) => handleDeleteChat(chat.id, e)}
+                        >
                           <Trash2 size={14} />
                           Delete
                         </DropdownMenuItem>
