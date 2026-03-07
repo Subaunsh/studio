@@ -24,7 +24,8 @@ import {
   Phone,
   Mail,
   MessageCircle,
-  ThumbsUp
+  ThumbsUp,
+  UserCircle
 } from "lucide-react";
 import {
   Dialog,
@@ -99,7 +100,7 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
             <a href="#pricing" onClick={(e) => handlePendingClick(e, "Pricing")} className="hover:text-primary transition-colors">Pricing</a>
             <a href="#contacts" className="hover:text-primary transition-colors">Contacts</a>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <Button 
               onClick={() => setIsSettingsModalOpen(true)} 
               variant="ghost" 
@@ -108,8 +109,14 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
             >
               <Settings size={20} />
             </Button>
-            <Button onClick={onEnterApp} variant="default" size="sm" className="rounded-full px-6 font-bold shadow-lg shadow-primary/20">
-              Open App
+            <Button 
+              onClick={onEnterApp} 
+              variant="default" 
+              size="icon" 
+              className="rounded-full h-10 w-10 shadow-lg shadow-primary/20 hover:scale-110 transition-transform"
+              title="Open App"
+            >
+              <UserCircle size={24} />
             </Button>
           </div>
         </div>
@@ -122,10 +129,10 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
             <Sparkles size={14} />
             The Future of Personal Intelligence
           </div>
-          <h1 className="text-[48px] md:text-[64px] font-black font-headline leading-[1.1] tracking-tighter animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:scale-[1.03] transition-all duration-300">
+          <h1 className="text-[48px] md:text-[80px] font-black font-headline leading-[1.1] tracking-tighter animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:scale-[1.03] transition-all duration-300">
             Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
           </h1>
-          <p className="text-[20px] text-muted-foreground leading-relaxed max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+          <p className="text-[24px] text-muted-foreground leading-relaxed max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
             Nova AI combines next-generation reasoning with seamless voice interaction, image generation, and a powerful suite of productivity tools. Experience intelligence that actually understands you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-500">
