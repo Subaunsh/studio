@@ -141,10 +141,10 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
             <Sparkles size={14} />
             The Future of Personal Intelligence
           </div>
-          <h1 className="text-[48px] md:text-[80px] font-black font-headline leading-[1.1] tracking-tighter animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:scale-[1.03] transition-all duration-300">
+          <h1 className="text-[56px] md:text-[92px] font-black font-headline leading-[1] tracking-tighter animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-150 cursor-default drop-shadow-[0_0_20px_rgba(var(--primary),0.5)] hover:scale-[1.02] transition-all duration-300">
             Meet Nova, Your <span className="text-primary italic">Universal</span> Assistant.
           </h1>
-          <p className="text-[20px] md:text-[24px] text-muted-foreground leading-relaxed max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+          <p className="text-[20px] md:text-[20px] text-muted-foreground leading-relaxed max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
             Nova AI combines next-generation reasoning with seamless voice interaction, image generation, and a powerful suite of productivity tools. Experience intelligence that actually understands you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-500">
@@ -265,7 +265,7 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
 
       {/* Auth Modal */}
       <Dialog open={isAuthModalOpen} onOpenChange={setIsAuthModalOpen}>
-        <DialogContent className="sm:max-w-[440px] rounded-[2.5rem] p-0 overflow-hidden border-none">
+        <DialogContent className="sm:max-w-[440px] rounded-[2.5rem] p-0 overflow-hidden border-none shadow-2xl">
           <div className="p-8 space-y-8 bg-card">
             <DialogHeader className="space-y-4">
               <div className="flex justify-center">
@@ -288,11 +288,11 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
                 <form onSubmit={handleAuthAction} className="space-y-3">
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input placeholder="Username" className="h-12 pl-10 rounded-xl bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/50" />
+                    <Input required placeholder="Username" className="h-12 pl-10 rounded-xl bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/50" />
                   </div>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input type="password" placeholder="Password" className="h-12 pl-10 rounded-xl bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/50" />
+                    <Input required type="password" placeholder="Password" className="h-12 pl-10 rounded-xl bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/50" />
                   </div>
                   <Button type="submit" className="w-full h-12 rounded-xl font-bold shadow-lg shadow-primary/10 hover:scale-[1.02] transition-transform">
                     Log In
@@ -333,7 +333,7 @@ function LandingPage({ onEnterApp }: { onEnterApp: () => void }) {
                       fill="#FBBC05"
                     />
                     <path
-                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                       fill="#EA4335"
                     />
                   </svg>
