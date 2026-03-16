@@ -116,9 +116,9 @@ export function ChatContainer({ chatId }: ChatContainerProps) {
         <div className="h-20 w-20 bg-primary/10 text-primary rounded-3xl flex items-center justify-center mb-6 shadow-sm">
           <Bot size={40} />
         </div>
-        <h2 className="text-3xl font-bold font-headline mb-3">What is your question?</h2>
+        <h2 className="text-3xl font-bold font-headline mb-3">How may I help you?</h2>
         <p className="text-muted-foreground max-w-md text-lg leading-relaxed">
-          Your personal AI assistant. How can I help you today?
+          Your personal AI assistant. What is your question today?
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-10 max-w-2xl w-full">
           {["Explain quantum physics", "Write a short story", "Help me plan a trip", "Daily task summary"].map((tip) => (
