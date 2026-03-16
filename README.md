@@ -1,4 +1,4 @@
-# Firebase Studio
+# AI Assistant
 
 This is a NextJS starter in Firebase Studio.
 
